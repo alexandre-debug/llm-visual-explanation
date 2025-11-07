@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, Brain, Zap, Target } from 'lucide-react';
+
+interface WordVector {
+  x: number;
+  y: number;
+  color: string;
+}
 
 const LLMVisualExplanation = () => {
   const [activeTab, setActiveTab] = useState('vectors');
   const [selectedWords, setSelectedWords] = useState(['rei', 'rainha']);
 
   // Dados dos vetores (simplificado para 2D)
-  const wordVectors = {
+  const wordVectors: Record<string, WordVector> = {
     'rei': { x: 0.8, y: 0.6, color: '#3b82f6' },
     'rainha': { x: 0.75, y: 0.65, color: '#ec4899' },
     'homem': { x: 0.7, y: 0.3, color: '#8b5cf6' },
@@ -16,14 +22,14 @@ const LLMVisualExplanation = () => {
   };
 
   // Calcular cosseno entre dois vetores
-  const calculateCosine = (v1, v2) => {
+  const calculateCosine = (v1: WordVector, v2: WordVector) => {
     const dotProduct = v1.x * v2.x + v1.y * v2.y;
     const mag1 = Math.sqrt(v1.x ** 2 + v1.y ** 2);
     const mag2 = Math.sqrt(v2.x ** 2 + v2.y ** 2);
     return dotProduct / (mag1 * mag2);
   };
 
-  const calculateDotProduct = (v1, v2) => {
+  const calculateDotProduct = (v1: WordVector, v2: WordVector) => {
     return v1.x * v2.x + v1.y * v2.y;
   };
 
